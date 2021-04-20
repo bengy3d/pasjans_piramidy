@@ -22,10 +22,23 @@ class Przycisk:
         self.tekst_zdjecie_rect = self.tekst_zdjecie.get_rect()
         self.tekst_zdjecie_rect.center = self.rect.center
         
-    def wysrodkuj(self):
+    def komunikat_wygrana(self):
         self.rect = pygame.Rect(0, 0, self.ustawienia.szerokosc_napisu,
                                 self.ustawienia.wysokosc_napisu)
         self.rect.center = self.ekran_rect.center
+        self.tekst_zdjecie_rect.center = self.rect.center
+        
+    def menu_glowne(self, nr_przycisku):
+        self.rect = pygame.Rect(0, 0, self.ustawienia.szerokosc_napisu,
+                                self.ustawienia.wysokosc_napisu)
+        if nr_przycisku == 1:
+            self.rect.center = self.ekran_rect.center
+        elif nr_przycisku == 2:
+            self.rect.center = self.ekran_rect.center
+            self.rect.y += 100
+        else:
+            self.rect.center = self.ekran_rect.center
+            self.rect.y -= 100
         self.tekst_zdjecie_rect.center = self.rect.center
         
     def wyswietl(self):
