@@ -3,7 +3,7 @@ import sys
 
 """Wszystkie funkcje związane z glowna petla gry"""
 #petla sprawdzajaca wszystkie wcisniecia i ruchy myszka gracza
-def sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart):
+def sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart, przycisk_menu):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -11,7 +11,9 @@ def sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart):
         elif event.type == pygame.MOUSEBUTTONDOWN:
             piramida.sprawdz_czy_wcisnieto(event)
             talia.sprawdz_czy_wcisnieto(event)
-            wcisniecie_przycisku(event, pula, piramida, talia, przycisk_restart)
+            wcisniecie_przycisku_restart(event, pula, piramida, talia, przycisk_restart)
+            if wcisniecie_przycisku_menu(event, przycisk_menu):
+                return True
         #przemieszczanie karty
         elif event.type == pygame.MOUSEMOTION:
             karta_poruszana = piramida.get_karta_poruszana()
@@ -33,11 +35,13 @@ def sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart):
                     piramida.odswiez()
                 else:
                     karta_poruszana.przywroc_poz()
+    return False
 
 #funkcja wyswietlajaca karty na ekran
-def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, wygrana):
+def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, wygrana, przycisk_menu):
     ekran.fill((ustawienia.kolor_tla))
     przycisk_restart.wyswietl()
+    przycisk_menu.wyswietl()
     karta_poruszana = piramida.get_karta_poruszana()
     #wyswietlenie talii i piramidy na ekran
     talia.stos.draw(ekran)
@@ -52,8 +56,12 @@ def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, wygrana):
     pygame.display.flip()
     
 #Funkcja sprawdzjaca czy wcisnieto przycisk restart jesli tak nastepuje zrestartowanie gry
-def wcisniecie_przycisku(event, pula, piramida, talia, przycisk_restart):
+def wcisniecie_przycisku_restart(event, pula, piramida, talia, przycisk_restart):
     if przycisk_restart.rect.collidepoint(event.pos):
         pula.pobierz_zdjecia_z_pliku()
         piramida.restart()
         talia.restart()
+    
+def wcisniecie_przycisku_menu(event, przycisk_menu):
+    if przycisk_menu.rect.collidepoint(event.pos):
+        return True

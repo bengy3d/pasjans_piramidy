@@ -23,20 +23,25 @@ def uruchom_gre():
     przycisk_menu_2.menu_glowne(2)
     #petla menu glownego gry
     while True:
-        wybor = mg.sprawdzanie_wydarzen(przycisk_menu_1, przycisk_menu_2)
-        mg.rysuj_ekran(ekran, ustawienia, przycisk_menu_1, przycisk_menu_2, tekst_wyboru)
-        if wybor != 0:
-            break
+        while True:
+            wybor = mg.sprawdzanie_wydarzen(przycisk_menu_1, przycisk_menu_2)
+            mg.rysuj_ekran(ekran, ustawienia, przycisk_menu_1, przycisk_menu_2, tekst_wyboru)
+            if wybor != 0:
+                break
         
-    pula = Pula(ekran, ustawienia, wybor)
-    piramida = Piramida(ekran, pula, wybor)
-    talia = Talia(ekran, pula, wybor)
-    przycisk_restart = Przycisk(ustawienia, ekran, 'Restart')
-    wygrana = Przycisk(ustawienia, ekran, 'WYGRAŁEŚ!')
-    wygrana.komunikat_wygrana()
-    #petla gry
-    while True:
-        fg.sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart)
-        fg.rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, wygrana)
+        pula = Pula(ekran, ustawienia, wybor)
+        piramida = Piramida(ekran, pula, wybor)
+        talia = Talia(ekran, pula, wybor)
+        przycisk_restart = Przycisk(ustawienia, ekran, 'Restart')
+        wygrana = Przycisk(ustawienia, ekran, 'WYGRAŁEŚ!')
+        wygrana.komunikat_wygrana()
+        przycisk_menu = Przycisk(ustawienia, ekran, 'Menu glowne')
+        przycisk_menu.menu_glowne(4)
+        #petla gry
+        while True:
+            war = fg.sprawdzanie_wydarzen(pula, piramida, talia, przycisk_restart, przycisk_menu)
+            fg.rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, wygrana, przycisk_menu)
+            if war:
+                break
     
 uruchom_gre()
