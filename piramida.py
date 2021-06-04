@@ -55,14 +55,16 @@ class Piramida:
         self.stos.remove(karta)
     
     #odkrywanie kart ktore zostaly odsloniete
-    def odswiez(self):
+    def odswiez(self, strategie):
         for karta1 in self.stos.sprites():
+            #odslonieta znaczy ze zadna karta nie przykrywa karty
             odslonieta = True
             for karta2 in self.stos.sprites():
                 if karta1.msc_w_puli < karta2.msc_w_puli and pygame.sprite.collide_rect(karta1, karta2):
                     odslonieta = False
                     break
             if odslonieta:
+                strategie.slownik[karta1.ranga] += 1
                 karta1.zmien_widocznosc()
     
     def restart(self):

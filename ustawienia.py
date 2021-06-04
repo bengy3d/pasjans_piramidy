@@ -17,3 +17,6 @@ class Ustawienia:
         
         self.szerokosc_napisu = 200
         self.wysokosc_napisu = 50
+        
+        #status gry
+        self.stan_gry = 0

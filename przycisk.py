@@ -1,6 +1,7 @@
 import pygame
 
 class Przycisk:
+    
     def __init__(self, ustawienia, ekran, tekst):
         self.ekran = ekran
         self.ustawienia = ustawienia
@@ -37,9 +38,6 @@ class Przycisk:
             self.rect.center = self.ekran_rect.center
             self.rect.y += 100
         elif nr_przycisku == 3:
-            self.rect.center = self.ekran_rect.center
-            self.rect.y -= 100
-        elif nr_przycisku == 4:
             self.rect.top = 30
             self.rect.left = self.ekran_rect.left + 30
         self.tekst_zdjecie_rect.center = self.rect.center

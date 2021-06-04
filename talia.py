@@ -42,7 +42,7 @@ class Talia:
         return przed_ostatni
     
     #sprawdzenie czy uzytkownik wcisnal karte jesli tak to ustawienie nowej na szczycie stosu    
-    def sprawdz_czy_wcisnieto(self, event):
+    def sprawdz_czy_wcisnieto(self, event, strategie):
         for karta in self.stos.sprites():
             if not karta.widocznosc and karta.rect.collidepoint(event.pos) and karta.rysuj:
                 ostatni = self.znajdz_ostatni()
@@ -50,6 +50,11 @@ class Talia:
                 ostatni = self.znajdz_ostatni()
                 ostatni.zmien_poz_stos()
                 ostatni.zmien_widocznosc()
+                strategie.slownik[ostatni.ranga] += 1
+                strategie.mnoznik = 1
+                """ Warunek sprawdzajacy czy dlugosc stosu jest wieksza od 1 jesli tak 
+                    program szuka przed ostatniej karty w stosie i sprawia ze zostaje
+                    ona wypisana na ekran w swoim stanie widocznosci """
                 if len(self.stos) > 1:
                     przed_ostatni = self.znajdz_przed_ostatni()
                     przed_ostatni.zmien_wyswietlanie()
