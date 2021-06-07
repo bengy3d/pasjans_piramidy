@@ -77,7 +77,7 @@ def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart,
         karta_poruszana.blitme()
     if not piramida.stos:
         wygrana.wyswietl()
-    if not ustawienia.mozliwe_ruchy:
+    if not ustawienia.mozliwe_ruchy and piramida.stos:
         przegrana.wyswietl()
     
     pygame.display.flip()

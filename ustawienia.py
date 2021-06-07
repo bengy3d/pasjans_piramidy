@@ -1,5 +1,3 @@
-import os
-
 class Ustawienia:
     def __init__(self):
         self.szerokosc_ekranu = 1200

@@ -24,9 +24,6 @@ class Strategie:
                 if licznik_kart < liczba_nastepnych:
                     karta_wskazowka = karta
                     licznik_kart = liczba_nastepnych
-                elif licznik_kart == liczba_nastepnych:
-                    #zapisywanie tej karty do listy kart rownych
-                    pass
         return karta_wskazowka
     
     def sprawdzanie_nastepnych(self, karta_t, karty_widoczne):

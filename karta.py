@@ -1,7 +1,6 @@
 import pygame
 from random import randint
 from pygame.sprite import Sprite
-from time import sleep
 """Klasa przechowujaca dane na temat kart i wszystkie ich metody"""
 class Karta(Sprite):
     def __init__(self, ekran, pula, msc_w_puli, widocznosc, tryb):

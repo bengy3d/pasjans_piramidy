@@ -1,4 +1,3 @@
-import pygame
 from pygame.sprite import Group
 
 from karta import Karta
