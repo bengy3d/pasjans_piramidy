@@ -45,13 +45,16 @@ def uruchom_gre():
         wskazowka.menu_glowne(4)
         strategie = Strategie(piramida,talia)
         punkty = Punkty(ekran, ustawienia, strategie)
+        punkty.odswiez_punkty()
+        rekord = Punkty(ekran, ustawienia, strategie)
+        rekord.odswiez_rekord()
         #petla gry
         while True:
             fg.sprawdzanie_wydarzen(pula, piramida, talia, 
                                     przycisk_restart, przycisk_menu, 
                                     strategie, ustawienia, punkty, wskazowka)
             fg.rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, 
-                           wygrana, przycisk_menu, punkty, wskazowka, przegrana)
+                           wygrana, przycisk_menu, punkty, wskazowka, przegrana, rekord)
             if ustawienia.stan_gry == 0:
                 break
     

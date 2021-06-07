@@ -56,7 +56,7 @@ def przemieszczanie_karty(event, piramida):
 
 #funkcja wyswietlajaca karty na ekran
 def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, 
-                wygrana, przycisk_menu, punkty, wskazowka, przegrana):
+                wygrana, przycisk_menu, punkty, wskazowka, przegrana, rekord):
     ekran.fill((ustawienia.kolor_tla))
     #wyswietlanie przyciskow
     przycisk_restart.wyswietl()
@@ -64,6 +64,7 @@ def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart,
     wskazowka.wyswietl()
     #wyswietlanie punktow
     punkty.wyswietl()
+    rekord.wyswietl()
     #wyswietlenie talii i piramidy na ekran
     #talia.stos.draw(ekran)
     #piramida.stos.draw(ekran)
@@ -77,6 +78,10 @@ def rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart,
         karta_poruszana.blitme()
     if not piramida.stos:
         wygrana.wyswietl()
+        if not ustawienia.zapis_do_pliku:
+            punkty.zapisz_rekord()
+            rekord.odswiez_rekord()
+            
     if not ustawienia.mozliwe_ruchy and piramida.stos:
         przegrana.wyswietl()
     
@@ -92,12 +97,14 @@ def wcisniecie_przycisku_restart(event, pula, piramida, talia, przycisk_restart,
         strategie.restart()
         punkty.odswiez_punkty()
         ustawienia.mozliwe_ruchy = True
+        ustawienia.zapis_do_pliku = False
  
 #Funkcja sprawdzajaca czy wcisnieto przycisk menu    
 def wcisniecie_przycisku_menu(event, przycisk_menu, ustawienia):
     if przycisk_menu.rect.collidepoint(event.pos):
         ustawienia.stan_gry = 0
         ustawienia.mozliwe_ruchy = True
+        ustawienia.zapis_do_pliku = False
         
 def wcisniecie_przycisku_wskazowka(event, wskazowka, talia, strategie, ustawienia):
     if wskazowka.rect.collidepoint(event.pos):

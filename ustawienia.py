@@ -20,3 +20,5 @@ class Ustawienia:
         
         #status gry
         self.stan_gry = 0
+        
+        self.zapis_do_pliku = False
