@@ -37,6 +37,10 @@ class Piramida:
     def sprawdz_czy_wcisnieto(self, event):
         for karta in self.stos.sprites():
             if karta.widocznosc and karta.rect.collidepoint(event.pos):
+                if karta.hint:
+                    karta.hint = False
+                else:
+                    self.anuluj_wskazowki()
                 karta.porusza_sie = True
                 break
     
@@ -55,7 +59,7 @@ class Piramida:
         self.stos.remove(karta)
     
     #odkrywanie kart ktore zostaly odsloniete
-    def odswiez(self, strategie):
+    def odswiez(self):
         for karta1 in self.stos.sprites():
             #odslonieta znaczy ze zadna karta nie przykrywa karty
             odslonieta = True
@@ -64,8 +68,12 @@ class Piramida:
                     odslonieta = False
                     break
             if odslonieta:
-                strategie.slownik[karta1.ranga] += 1
                 karta1.zmien_widocznosc()
+    
+    def anuluj_wskazowki(self):
+        for karta in self.stos.sprites():
+            if karta.hint:
+                karta.hint = False
     
     def restart(self):
         self.stos.empty()

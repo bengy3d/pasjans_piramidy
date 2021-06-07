@@ -35,19 +35,23 @@ def uruchom_gre():
         piramida = Piramida(ekran, pula, ustawienia.stan_gry)
         talia = Talia(ekran, pula, ustawienia.stan_gry)
         przycisk_restart = Przycisk(ustawienia, ekran, 'Restart')
-        wygrana = Przycisk(ustawienia, ekran, 'WYGRAŁEŚ!')
-        wygrana.komunikat_wygrana()
+        wygrana = Napisy(ekran, ustawienia, 'WYGRALES!')
+        wygrana.wysrodkuj()
+        przegrana = Napisy(ekran, ustawienia, 'Niestety przegrales sprobuj ponownie')
+        przegrana.wysrodkuj()
         przycisk_menu = Przycisk(ustawienia, ekran, 'Menu glowne')
         przycisk_menu.menu_glowne(3)
+        wskazowka = Przycisk(ustawienia, ekran, 'Wskazowka')
+        wskazowka.menu_glowne(4)
         strategie = Strategie(piramida,talia)
         punkty = Punkty(ekran, ustawienia, strategie)
         #petla gry
         while True:
             fg.sprawdzanie_wydarzen(pula, piramida, talia, 
                                     przycisk_restart, przycisk_menu, 
-                                    strategie, ustawienia, punkty)
-            fg.rysuj_ekran(ekran, ustawienia, piramida, talia, 
-                           przycisk_restart, wygrana, przycisk_menu, punkty)
+                                    strategie, ustawienia, punkty, wskazowka)
+            fg.rysuj_ekran(ekran, ustawienia, piramida, talia, przycisk_restart, 
+                           wygrana, przycisk_menu, punkty, wskazowka, przegrana)
             if ustawienia.stan_gry == 0:
                 break
     

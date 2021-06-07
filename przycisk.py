@@ -39,7 +39,10 @@ class Przycisk:
             self.rect.y += 100
         elif nr_przycisku == 3:
             self.rect.top = 30
-            self.rect.left = self.ekran_rect.left + 30
+            self.rect.left = 30
+        elif nr_przycisku == 4:
+            self.rect.top = 100
+            self.rect.left = 30
         self.tekst_zdjecie_rect.center = self.rect.center
         
     def wyswietl(self):

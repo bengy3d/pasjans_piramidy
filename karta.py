@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 from pygame.sprite import Sprite
+from time import sleep
 """Klasa przechowujaca dane na temat kart i wszystkie ich metody"""
 class Karta(Sprite):
     def __init__(self, ekran, pula, msc_w_puli, widocznosc, tryb):
@@ -12,6 +13,7 @@ class Karta(Sprite):
         self.ekran = ekran
         self.ekran_rect = ekran.get_rect()
         self.msc_w_puli = msc_w_puli
+        self.hint = False
         
         numer = randint(0, len(pula.zdjecia_otwartych) - 1)
         
@@ -83,7 +85,13 @@ class Karta(Sprite):
             self.rysuj = False
         else:
             self.rysuj = True
+            
+    def wskazowka(self):
+        self.zdjecie_wskazowki = pygame.image.load('zdjecia_zakrytych/ramka.bmp')
+        self.hint = True
     
     #wyswietlenie karty na ekran        
     def blitme(self):
         self.ekran.blit(self.image, self.rect)
+        if self.hint:
+            self.ekran.blit(self.zdjecie_wskazowki, self.rect)

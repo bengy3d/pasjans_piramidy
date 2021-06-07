@@ -6,15 +6,47 @@ class Strategie:
         self.talia = talia
         self.restart()
 
-    def restart(self):
-        self.slownik = {liczba: 0 for liczba in range(1, 14)}
+    def pobierz_liste_kart_widocznych(self):
+        self.karty_widoczne = Group()
         for karta in self.piramida.stos.sprites():
             if karta.widocznosc:
-                self.slownik[karta.ranga] += 1
-        #z talii kart dolnych
-        for karta in self.talia.stos.sprites():
-            if karta.widocznosc:
-                self.slownik[karta.ranga] += 1
+                self.karty_widoczne.add(karta)
+
+    def sprawdz_warunki(self, karta_t):
+        self.pobierz_liste_kart_widocznych()
+        karta_wskazowka = None
+        licznik_kart = -1
+        for karta in self.karty_widoczne:
+            if karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga:
+                karty_widoczne_kopia = self.karty_widoczne.copy()
+                karty_widoczne_kopia.remove(karta)
+                liczba_nastepnych = self.sprawdzanie_nastepnych(karta, karty_widoczne_kopia)
+                if licznik_kart < liczba_nastepnych:
+                    karta_wskazowka = karta
+                    licznik_kart = liczba_nastepnych
+                elif licznik_kart == liczba_nastepnych:
+                    #zapisywanie tej karty do listy kart rownych
+                    pass
+        return karta_wskazowka
+    
+    def sprawdzanie_nastepnych(self, karta_t, karty_widoczne):
+        najw = 0
+        licznik = 0
+        for karta in karty_widoczne:
+            if karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga:
+                licznik = 1
+                karty_widoczne_kopia = karty_widoczne.copy()
+                karty_widoczne_kopia.remove(karta)
+                licznik += self.sprawdzanie_nastepnych(karta, karty_widoczne_kopia)
+                if najw < licznik:
+                    najw = licznik
+                licznik = 0
+        if najw == 0:
+            return 0
+        elif najw != 0:
+            return najw
                 
+
+    def restart(self):
         self.punkty = 0
         self.mnoznik = 1

@@ -36,6 +36,7 @@ class Talia:
         return ostatni
     
     def znajdz_przed_ostatni(self):
+        przed_ostatni = None
         for karta in self.stos.sprites():
             if not karta.widocznosc:
                 przed_ostatni = karta
@@ -50,7 +51,6 @@ class Talia:
                 ostatni = self.znajdz_ostatni()
                 ostatni.zmien_poz_stos()
                 ostatni.zmien_widocznosc()
-                strategie.slownik[ostatni.ranga] += 1
                 strategie.mnoznik = 1
                 """ Warunek sprawdzajacy czy dlugosc stosu jest wieksza od 1 jesli tak 
                     program szuka przed ostatniej karty w stosie i sprawia ze zostaje
@@ -58,6 +58,9 @@ class Talia:
                 if len(self.stos) > 1:
                     przed_ostatni = self.znajdz_przed_ostatni()
                     przed_ostatni.zmien_wyswietlanie()
+                if karta.hint:
+                    karta.hint = False
+                return True
     
     #usuniecie karty ze stosu
     def usun_karte(self, karta):
