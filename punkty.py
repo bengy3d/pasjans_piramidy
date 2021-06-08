@@ -45,11 +45,12 @@ class Punkty:
     def zapisz_rekord(self):
         self.pobierz_rekordy_z_pliku()
         self.ustawienia.zapis_do_pliku = True
-        with open('rekord.txt', 'w') as f:
-            if self.ustawienia.stan_gry == 1:
-                f.write(str(self.strategie.punkty) + '\n' + str(self.rekord2))
-            else:
-                f.write(str(self.rekord1) + '\n' + str(self.strategie.punkty))
+        if self.ustawienia.stan_gry == 1 and self.strategie.punkty > int(self.rekord1):
+            with open('rekord.txt', 'w') as f:
+                    f.write(str(self.strategie.punkty) + '\n' + str(self.rekord2.strip()))
+        elif self.ustawienia.stan_gry == 2 and self.strategie.punkty > int(self.rekord2):
+            with open('rekord.txt', 'w') as f:
+                f.write(str(self.rekord1.strip()) + '\n' + str(self.strategie.punkty))
     
     def wyswietl(self):
         self.ekran.blit(self.punkty_zdjecie, self.punkty_rect)
