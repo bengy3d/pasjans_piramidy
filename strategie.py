@@ -17,6 +17,7 @@ class Strategie:
         self.pobierz_liste_kart_widocznych()
         karta_wskazowka = None
         licznik_kart = -1
+        odkryte_wskazowka = 0
         for karta in self.karty_widoczne:
             if karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga:
                 karty_widoczne_kopia = self.karty_widoczne.copy()
@@ -25,9 +26,14 @@ class Strategie:
                 if licznik_kart < liczba_nastepnych:
                     karta_wskazowka = karta
                     licznik_kart = liczba_nastepnych
-                if licznik_kart == liczba_nastepnych:
-                    war = self.sprawdzanie_czy_odkrywa()
-                    if war:
+                    odkryte_wskazowka = 0
+                elif licznik_kart == liczba_nastepnych:
+                    if not odkryte_wskazowka:
+                        odkryte_wskazowka = self.sprawdzanie_czy_odkrywa(karta_wskazowka)
+                    odkryte2 = self.sprawdzanie_czy_odkrywa(karta)
+                    print('odkryte_wskazowka =' + str(odkryte_wskazowka))
+                    print('odkryte_2 =' + str(odkryte2))
+                    if odkryte2 <= 2 and odkryte2 > odkryte_wskazowka:
                         karta_wskazowka = karta
                         licznik_kart = liczba_nastepnych
                         
@@ -51,19 +57,17 @@ class Strategie:
             return najw
         
     def sprawdzanie_czy_odkrywa(self, karta):
-        licznik_pokrytych = 0
+        licznik_odkrytych = 0
         for karta1 in self.piramida.stos.sprites():
-            if karta1.msc_w_puli < karta.msc_w_puli and pygame.sprite.collide_rect(karta1, karta):
-                licznik_pokrytych += 1
+            if karta1.rect.y < karta.rect.y and pygame.sprite.collide_rect(karta1, karta):
+                war = True
                 for karta2 in self.piramida.stos.sprites():
-                    if karta1.msc_w_puli < karta2.msc_w_puli and pygame.sprite.collide_rect(karta1, karta2):
-                        licznik_pokrytych += 1
-                        break
-                    break
-        if licznik_pokrytych == 1:
-            return True
-        else:
-            return False
+                    if karta2 != karta and karta1.rect.y < karta2.rect.y and pygame.sprite.collide_rect(karta2, karta1):
+                        war = False
+                if war:
+                    licznik_odkrytych += 1
+                
+        return licznik_odkrytych
 
     def restart(self):
         self.punkty = 0
