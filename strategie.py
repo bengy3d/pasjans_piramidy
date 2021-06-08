@@ -1,3 +1,4 @@
+import pygame
 from pygame.sprite import Group
 
 class Strategie:
@@ -24,6 +25,12 @@ class Strategie:
                 if licznik_kart < liczba_nastepnych:
                     karta_wskazowka = karta
                     licznik_kart = liczba_nastepnych
+                if licznik_kart == liczba_nastepnych:
+                    war = self.sprawdzanie_czy_odkrywa()
+                    if war:
+                        karta_wskazowka = karta
+                        licznik_kart = liczba_nastepnych
+                        
         return karta_wskazowka
     
     def sprawdzanie_nastepnych(self, karta_t, karty_widoczne):
@@ -42,7 +49,21 @@ class Strategie:
             return 0
         elif najw != 0:
             return najw
-                
+        
+    def sprawdzanie_czy_odkrywa(self, karta):
+        licznik_pokrytych = 0
+        for karta1 in self.piramida.stos.sprites():
+            if karta1.msc_w_puli < karta.msc_w_puli and pygame.sprite.collide_rect(karta1, karta):
+                licznik_pokrytych += 1
+                for karta2 in self.piramida.stos.sprites():
+                    if karta1.msc_w_puli < karta2.msc_w_puli and pygame.sprite.collide_rect(karta1, karta2):
+                        licznik_pokrytych += 1
+                        break
+                    break
+        if licznik_pokrytych == 1:
+            return True
+        else:
+            return False
 
     def restart(self):
         self.punkty = 0
