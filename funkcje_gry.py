@@ -36,7 +36,9 @@ def przycisk_myszy_gora(piramida, talia, strategie, punkty):
         ostatni = talia.znajdz_ostatni()
         #sprawdzenie czy karta polozona na szczytowa karte stosu jest o range mniejsza badz wieksza
         if pygame.sprite.collide_rect(ostatni, karta_poruszana) and (ostatni.ranga - 1 == karta_poruszana.ranga 
-                                                                    or ostatni.ranga + 1 == karta_poruszana.ranga):
+                                                                    or ostatni.ranga + 1 == karta_poruszana.ranga 
+                                                                    or ostatni.ranga + 12 == karta_poruszana.ranga
+                                                                    or ostatni.ranga - 12 == karta_poruszana.ranga):
             talia.usun_karte(ostatni)
             karta_poruszana.zmien_poz_stos()
             talia.dodaj_karte(karta_poruszana)

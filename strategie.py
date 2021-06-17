@@ -19,7 +19,8 @@ class Strategie:
         licznik_kart = -1
         odkryte_wskazowka = 0
         for karta in self.karty_widoczne:
-            if karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga:
+            if (karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga 
+                or karta.ranga + 12 == karta_t.ranga or karta.ranga - 12 == karta_t.ranga):
                 karty_widoczne_kopia = self.karty_widoczne.copy()
                 karty_widoczne_kopia.remove(karta)
                 liczba_nastepnych = self.sprawdzanie_nastepnych(karta, karty_widoczne_kopia)
@@ -31,8 +32,6 @@ class Strategie:
                     if not odkryte_wskazowka:
                         odkryte_wskazowka = self.sprawdzanie_czy_odkrywa(karta_wskazowka)
                     odkryte2 = self.sprawdzanie_czy_odkrywa(karta)
-                    print('odkryte_wskazowka =' + str(odkryte_wskazowka))
-                    print('odkryte_2 =' + str(odkryte2))
                     if odkryte2 <= 2 and odkryte2 > odkryte_wskazowka:
                         karta_wskazowka = karta
                         licznik_kart = liczba_nastepnych
@@ -43,7 +42,8 @@ class Strategie:
         najw = 0
         licznik = 0
         for karta in karty_widoczne:
-            if karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga:
+            if (karta.ranga + 1 == karta_t.ranga or karta.ranga - 1 == karta_t.ranga
+                or karta.ranga + 12 == karta_t.ranga or karta.ranga - 12 == karta_t.ranga):
                 licznik = 1
                 karty_widoczne_kopia = karty_widoczne.copy()
                 karty_widoczne_kopia.remove(karta)
