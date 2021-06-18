@@ -4,7 +4,6 @@ from karta import Karta
 """Klasa odpowiadajaca za karty w piramidzie"""
 class Piramida:
     def __init__(self, ekran, pula, tryb):
-        self.stos = Group()
         self.ekran = ekran
         self.pula = pula
         self.tryb = tryb

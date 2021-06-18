@@ -2,7 +2,6 @@ import os
 
 class Pula:
     def __init__(self, ekran, ustawienia, tryb):
-        self.ekran = ekran
         self.ekran_rect = ekran.get_rect()
         self.pobierz_zdjecia_z_pliku()
         self.tryb = tryb
