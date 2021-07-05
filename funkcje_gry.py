@@ -28,7 +28,7 @@ def przycisk_myszy_dol(event, pula, piramida, talia, przycisk_restart,
     wcisniecie_przycisku_restart(event, pula, piramida, talia, 
                                  przycisk_restart, strategie, punkty, ustawienia)
     wcisniecie_przycisku_menu(event, przycisk_menu, ustawienia)
-    wcisniecie_przycisku_wskazowka(event, wskazowka, talia, strategie, ustawienia)
+    wcisniecie_przycisku_wskazowka(event, wskazowka, talia, piramida, strategie, ustawienia)
     
 def przycisk_myszy_gora(piramida, talia, strategie, punkty):
     karta_poruszana = piramida.get_karta_poruszana()
@@ -108,8 +108,9 @@ def wcisniecie_przycisku_menu(event, przycisk_menu, ustawienia):
         ustawienia.mozliwe_ruchy = True
         ustawienia.zapis_do_pliku = False
         
-def wcisniecie_przycisku_wskazowka(event, wskazowka, talia, strategie, ustawienia):
+def wcisniecie_przycisku_wskazowka(event, wskazowka, talia, piramida, strategie, ustawienia):
     if wskazowka.rect.collidepoint(event.pos):
+        piramida.anuluj_wskazowki()
         karta_t = talia.znajdz_ostatni()
         karta = strategie.sprawdz_warunki(karta_t)
         if karta:

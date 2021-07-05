@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Group
+from random import randint
 
 class Strategie:
     def __init__(self, piramida, talia):
@@ -35,7 +36,11 @@ class Strategie:
                     if odkryte2 <= 2 and odkryte2 > odkryte_wskazowka:
                         karta_wskazowka = karta
                         licznik_kart = liczba_nastepnych
-                        
+                    elif odkryte2 <= 2 and odkryte2 == odkryte_wskazowka:
+                        los = randint(0,1)
+                        if not los:
+                            karta_wskazowka = karta
+                            licznik_kart = liczba_nastepnych         
         return karta_wskazowka
     
     def sprawdzanie_nastepnych(self, karta_t, karty_widoczne):
